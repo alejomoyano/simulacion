@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Prueba</title>
+  </head>
+  <body>
+
+    <div>
+      <label for="email">Email: </label>
+      <input type="email" name="email" id="logEmail" style="margin: 3px" maxlength="30" data-length="30" required/>
+    </div>
+    <div>
+      <label for="password">Password: </label>
+      <input type="password" name="password" id="logPass"  style="margin: 3px" maxlength="10" data-length="10" required />
+    </div>
+    <div>
+      <input type="button" id="btnRegist" style="margin: 3px" value="Sign In"> 
+    </div>
+    <div>
+      <input type="button" id="btnLogin" style="margin: 3px" value="Log In">
+    </div>
+    <div>
+      <input type="button" id="btnGoogle" style="margin: 3px" value="Google"><hr>
+    </div>
+    <div>
+      <span>Put a file in the storage </span>
+      <input type="file" id="btnImg" style="margin: 3px">
+      <input type="button" id="btnDelete" style="margin: 3px" value="Delete"> <hr>
+    </div>
+    <div>
+      <label for="name">Name: </label>
+      <input type="text" name="name" id="name" style="margin: 3px" maxlength="30" data-length="30" required/><br>
+      <label for="lastname">Last name: </label>
+      <input type="text" name="lastname" id="lastname" style="margin: 3px" maxlength="30" data-length="30" required/><br>
+      <label for="age">Age: </label>
+      <input type="text" name="age" id="age" style="margin: 3px" maxlength="30" data-length="30" required/><br>
+      <input type="button" id="btnStore" style="margin: 3px" value="Add a person"> <hr>
+    </div>
+    <div> 
+      <label for="nombre">Name: </label>
+      <input type="text" name="nombre" id="namePerson"> <br>
+      <input type="button" id="btnGetPerson" style="margin: 3px" value="Get person">
+      <input type="button" id="btnDeletePerson" style="margin: 3px" value="Delete person"> <hr>
+    </div>
+  </body>
+  
+      <!-- JQ -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+    
+    
+    <!-- update the version number as needed -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-firestore.js"></script>
+
+   
+
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="./Config.js"></script>
+    <script type="text/javascript" src="./General.js"></script>
+    <script type="text/javascript" src="./Auth.js"></script>
+    <script type="text/javascript" src="./Stor.js"></script>
+    <script type="text/javascript" src="./Base.js"></script>
+
+
+</html>

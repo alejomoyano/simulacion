@@ -1,0 +1,14 @@
+{
+  "name": "simulacion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alejo Moyano",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^6.2.3"
+  }
+}
