@@ -90,4 +90,32 @@ $('#btnDeletePerson').click(() => {
         console.log('U must be logged')
     }
 })
+
+
+//MESSAGING SHIT
+
+const messaging = firebase.messaging()
+
+//Ask permission to send notifications
+messaging.requestPermission()
+.then(() => {
+    console.log('Notification permission granted.')
+    //Get and return the token, move it to the server
+    return messaging.getToken()
+    .then(token => {
+        console.log(token)
+        firebase.firestore().collection('Tokens').add({token: token})
+        .then(() => console.log('Token correctly added'))
+        .catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))
+
+  }).catch(function(error) {
+    console.log('Unable to get permission to notify.', error)
+  });
+
+  //Send a notification when the page is closed
+  messaging.onMessage( payload => {
+    console.log(payload)
+  })
 })
