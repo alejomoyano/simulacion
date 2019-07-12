@@ -29,8 +29,10 @@ class Base{
     }
 
     deletePersonByName(name){
+        //Get the collection
         firebase.firestore().collection('Person').get()
             .then( document => {
+                //forEach to see each document 
                 document.forEach( person =>{
                 if(person.data().name == name){
                     console.log(person.data())
@@ -43,4 +45,27 @@ class Base{
         
         })
     }
+
+    getAndUpdateAPerson(name, nameUpdate, lastnameUpdate, ageUpdate){
+        firebase.firestore().collection('Person').get()
+        .then( document => { 
+            document.forEach( person =>{
+            if(person.data().name == name){
+                console.log(person.data())
+                firebase.firestore().collection('Person').doc(person.id).set({
+                    name: nameUpdate,
+                    lastname : lastnameUpdate,
+                    age : ageUpdate
+                })
+                .then(() => console.log('Update correct'))
+                .catch( error => console.error(error))
+                
+            }
+            else{
+                console.log(`${name} doesnt exist` )
+            }
+        })
+    
+    })
+}
 }

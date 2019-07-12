@@ -5,14 +5,15 @@ const admin = require('firebase-admin')
 
 
 exports.notificationNewPost = snapshot => {
+    //Filter
     if (snapshot.name.match(/images\//)) {
 
     const topic = 'Images'      
 
         const message = {
             data: {
-                titulo: 'New image',
-                descripcion: 'we`ve a new image BITCH',  
+                title: 'New image',
+                description: 'New image BITCH',  
               },
               topic : topic
         }
@@ -24,9 +25,10 @@ exports.notificationNewPost = snapshot => {
     return null
 }
 
-
+//Subscribe to a topic when the user provides the permission to send messages
 exports.subsToTopic = snapshot => {
 
+    //Param => token and topic
     return admin.messaging().subscribeToTopic(snapshot.data().token, 'Images')
     .then(() => console.log('Subscribed to topic'))
     .catch( error => console.error(error))

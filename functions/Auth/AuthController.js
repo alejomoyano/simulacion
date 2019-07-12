@@ -9,8 +9,8 @@ exports.sendWelcomeEmail = usuario => {
         host: 'smtp.gmail.com',
 
         auth: {
-          user: 'alejomoyano16@gmail.com',
-          pass: 'colo081297'
+          user: '',
+          pass: ''
         }
 
     })

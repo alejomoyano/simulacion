@@ -75,7 +75,7 @@ $('#btnGetPerson').click(() => {
         person.getPersonByName(name)
     }
     else{
-        console.log('U must be logged and')
+        console.log('U must be logged')
     }
 })
 
@@ -91,6 +91,30 @@ $('#btnDeletePerson').click(() => {
     }
 })
 
+$('#btnMakeTheUpdate').click(() => {
+    const person = new Base()
+    const name = $('#name1').val()
+    const nameUpdate = $('#nameUpdate').val()
+    const lastnameUpdate = $('#lastnameUpdate').val()
+    const ageUpdate = $('#ageUpdate').val()
+    const user = firebase.auth().currentUser
+    if(user){
+        person.getAndUpdateAPerson(name, nameUpdate, lastnameUpdate,ageUpdate)
+    }
+    else{
+        console.log('U must be logged')
+    }
+})
+
+$('#btnHTTPS').click(() => {
+    fetch('https://us-central1-simulacion-de938.cloudfunctions.net/consoleLog')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data) // Prints result from 'response.json()'
+    })
+    .catch(error => console.error(error))
+})
+
 
 //MESSAGING SHIT
 
@@ -103,10 +127,22 @@ messaging.requestPermission()
     //Get and return the token, move it to the server
     return messaging.getToken()
     .then(token => {
-        console.log(token)
-        firebase.firestore().collection('Tokens').add({token: token})
-        .then(() => console.log('Token correctly added'))
-        .catch(error => console.error(error))
+        //Search the token in firebase
+        firebase.firestore().collection('Tokens').get()
+        .then( collection => {
+            collection.forEach( doc => {
+                //If the token already exist..
+                if(token === doc.data().token){
+                    console.log('Token already added')
+                }
+                //If the token isnt in firestore
+                else{
+                    firebase.firestore().collection('Tokens').add({token: token})
+                    .then(() => console.log('Token correctly added'))
+                    .catch(error => console.error(error))
+                }
+            })
+        })
     })
     .catch(error => console.error(error))
 
@@ -114,7 +150,7 @@ messaging.requestPermission()
     console.log('Unable to get permission to notify.', error)
   });
 
-  //Send a notification when the page is closed
+  //Send a notification when the page is opened
   messaging.onMessage( payload => {
     console.log(payload)
   })
