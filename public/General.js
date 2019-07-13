@@ -5,10 +5,11 @@ firebase.initializeApp(firebaseConfig)
 
 firebase.auth().onAuthStateChanged( user => {
     if(user){
-        console.log('Ya hay alguien logeado')
+        console.log('Someone already logged')
         $('#btnLogin').val('Log Out')
     }
     else{
+        console.log('No one logged')
         $('#btnLogin').val('Log In')
     }
 })
@@ -106,13 +107,22 @@ $('#btnMakeTheUpdate').click(() => {
     }
 })
 
-$('#btnHTTPS').click(() => {
-    fetch('https://us-central1-simulacion-de938.cloudfunctions.net/consoleLog')
-    .then(response => response.json())
-    .then(data => {
-        console.log(data) // Prints result from 'response.json()'
-    })
-    .catch(error => console.error(error))
+$('#btnHTTPS').click(async () => {
+
+    try{
+        const response = await fetch(`https://us-central1-simulacion-de938.cloudfunctions.net/consoleLog`)
+        const data = await response.json()
+        console.log(data)
+    }
+    catch(error){
+        console.error(error)
+    }
+    
+    //.then(response => response.json())
+    //.then(data => {
+    //    console.log(data) // Prints result from 'response.json()'
+    //})
+    //.catch(error => console.error(error))
 })
 
 
@@ -122,32 +132,33 @@ const messaging = firebase.messaging()
 
 //Ask permission to send notifications
 messaging.requestPermission()
-.then(() => {
+.then( async () => {
     console.log('Notification permission granted.')
-    //Get and return the token, move it to the server
-    return messaging.getToken()
-    .then(token => {
+    try {
+        //Get the token
+        const token = await messaging.getToken()
         //Search the token in firebase
         firebase.firestore().collection('Tokens').get()
-        .then( collection => {
-            collection.forEach( doc => {
-                //If the token already exist..
-                if(token === doc.data().token){
-                    console.log('Token already added')
-                }
-                //If the token isnt in firestore
-                else{
-                    firebase.firestore().collection('Tokens').add({token: token})
-                    .then(() => console.log('Token correctly added'))
-                    .catch(error => console.error(error))
-                }
-            })
-        })
-    })
-    .catch(error => console.error(error))
-
-  }).catch(function(error) {
-    console.log('Unable to get permission to notify.', error)
+            .then(collection => {
+                collection.forEach(doc => {
+                    //If the token already exist..
+                    if (token === doc.data().token) {
+                        console.log('Token already added');
+                    }
+                    //If the token isnt in firestore
+                    else {
+                        firebase.firestore().collection('Tokens').add({ token: token })
+                            .then(() => console.log('Token correctly added'))
+                            .catch(error => console.error(error));
+                    }
+                });
+            });
+    }
+    catch (e) {
+        return console.error(e);
+    }
+  }).catch( error => {
+    console.log('Unable to get permission to notify ', error)
   });
 
   //Send a notification when the page is opened

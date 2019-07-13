@@ -1,12 +1,12 @@
 class Auth{
 
 createUserWithEmail(email,password){
-    console.log(`Logueando con ${email}`)
+    console.log(`Signin with ${email}`)
     firebase.auth().createUserWithEmailAndPassword(email,password)
     .then(result => {
        result.user.sendEmailVerification().catch(error => {console.error(error)})
        firebase.auth().signOut()
-       console.log('Usuario creado')
+       console.log('User created')
     })
     .catch(error => {
         console.error(error)
@@ -19,13 +19,13 @@ logInWithEmail(email,password){
     .then( result => {
         //Verifica que el usuario haya verificado la cuenta
         if(result.user.emailVerified){
-            console.log("Login correcto, usuario verificado")
+            console.log("Correct login, email verified")
             
         }
         //Si no la verifico hace signout
         else{
             firebase.auth().signOut()
-            console.log("No esta verificado")
+            console.log("Not verified")
         }
     })
     .catch(error => {
@@ -39,7 +39,7 @@ authWithGoogle(){
 
     firebase.auth().signInWithPopup(provider)
     .then(() => {
-        console.log("Logueado con Google")
+        console.log("Logged with Google")
     })
     .catch(error => {
         console.error(error)

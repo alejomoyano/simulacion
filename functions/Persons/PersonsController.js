@@ -2,6 +2,7 @@
 
 
 exports.updatedPerson = (change, context) => {
+    //Change is the changes if the person 
     const after = change.after.data()
     const before = change.before.data()
 
@@ -9,7 +10,7 @@ exports.updatedPerson = (change, context) => {
         return console.log(`Name changed to ${after.name}, Age changed to ${after.age}, Lastname changed to ${after.lastname}`)
     }
     
-    return console.log('No changes maded')
+    return console.log('There are no changes made')
     
 
 }
