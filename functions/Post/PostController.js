@@ -34,3 +34,10 @@ exports.subsToTopic = snapshot => {
     .catch( error => console.error(error))
     
 }
+
+
+exports.subToTopic = (data,context) => {
+    return admin.messaging().subscribeToTopic(data.token, 'Images')
+    .then(() => console.log('Subscribed to topic'))
+    .catch( error => console.error(error))
+}

@@ -125,7 +125,19 @@ $('#btnHTTPS').click(async () => {
     //.catch(error => console.error(error))
 })
 
+$('#btnSubToTopic').click(() => {
+    var misCabeceras = new Headers() 
+    
+    var miInit = { method: 'PUT',
+               headers: misCabeceras,
+               mode: 'cors',
+               cache: 'default' };
 
+    fetch(`https://us-central1-simulacion-de938.cloudfunctions.net/subTopic`)
+    .then( response => response.json())
+    .then( data => console.log(data))
+    .catch( error => console.error(error))
+})
 //MESSAGING SHIT
 
 const messaging = firebase.messaging()
